@@ -2,7 +2,7 @@
 Summary:	A utility for removing files based on when they were last accessed
 Name:		tmpwatch
 Version:	2.9.10
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		File tools
 License:	GPL
 URL:		ftp://ftp.redhat.com/pub/redhat/linux/rawhide/SRPMS/SRPMS/
@@ -11,14 +11,14 @@ Requires:	psmisc
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-The tmpwatch utility recursively searches through specified
-directories and removes files which have not been accessed in a
-specified period of time.  Tmpwatch is normally used to clean up
-directories which are used for temporarily holding files (for example,
-/tmp).  Tmpwatch ignores symlinks, won't switch filesystems and only
-removes empty directories and regular files.
+The tmpwatch utility recursively searches through specified directories and
+removes files which have not been accessed in a specified period of time.
+Tmpwatch is normally used to clean up directories which are used for
+temporarily holding files (for example, /tmp). Tmpwatch ignores symlinks,
+won't switch filesystems and only removes empty directories and regular files.
 
 %prep
+
 %setup -q
 
 %build
@@ -52,7 +52,7 @@ EOF
 
 cat > tmpwatch.sysconfig << EOF
 # (oe) define files/directories/sockets tmpwatch should ignore (#18488)
-TMPWATCH_EXCLUDES="-x /tmp/.ICE-unix -x /tmp/.X*-unix -x /tmp/.font-unix -x /tmp/.Test-unix"
+TMPWATCH_EXCLUDES="-x /tmp/.ICE-unix -x /tmp/.X*-unix -x /tmp/.font-unix -x /tmp/.Test-unix -x /tmp/jack-*"
 EOF
 
 install -m0755 tmpwatch.cron %{buildroot}%{_sysconfdir}/cron.daily/tmpwatch
@@ -63,7 +63,7 @@ The %{_sysconfdir}/cron.daily/tmpwatch script has been changed to use the %{_sys
 file to exclude certain files/directories/sockets from being processed. It should be safe to make your changes
 there instead. Per default these are not touched by tmpwatch:
 
-/tmp/.ICE-unix /tmp/.X*-unix /tmp/.font-unix /tmp/.Test-unix 
+/tmp/.ICE-unix /tmp/.X*-unix /tmp/.font-unix /tmp/.Test-unix /tmp/jack-*
 EOF
 
 %clean
@@ -76,5 +76,3 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/tmpwatch
 %{_sbindir}/tmpwatch
 %{_mandir}/man8/tmpwatch.8*
-
-
