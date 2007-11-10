@@ -1,14 +1,13 @@
-# CVSROOT=':ext:user@devserv.devel.redhat.com:/home/devel/CVS'
-Summary:	A utility for removing files based on when they were last accessed
-Name:		tmpwatch
-Version:	2.9.10
-Release:	%mkrel 2
-Group:		File tools
-License:	GPL
-URL:		ftp://ftp.redhat.com/pub/redhat/linux/rawhide/SRPMS/SRPMS/
-Source0:	%{name}-%{version}.tar.bz2
-Requires:	psmisc
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Name:           tmpwatch
+Version:        2.9.11
+Release:        %mkrel 1
+Summary:        Utility for removing files based on when they were last accessed
+Group:          File tools
+License:        GPL
+URL:            http://download.fedora.redhat.com/pub/fedora/linux/development/source/SRPMS/
+Source0:        %{name}-%{version}.tar.bz2
+Requires:       psmisc
+Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The tmpwatch utility recursively searches through specified directories and
@@ -22,12 +21,12 @@ won't switch filesystems and only removes empty directories and regular files.
 %setup -q
 
 %build
-%make RPM_OPT_FLAGS="%{optflags}"
+%{make} RPM_OPT_FLAGS="%{optflags}"
 
 %install
 rm -rf %{buildroot}
 
-%makeinstall ROOT=%{buildroot} MANDIR=%{_mandir} SBINDIR=%{_sbindir}
+%{makeinstall} ROOT=%{buildroot} MANDIR=%{_mandir} SBINDIR=%{_sbindir}
 
 install -d %{buildroot}%{_sysconfdir}/cron.daily
 install -d %{buildroot}%{_sysconfdir}/sysconfig
@@ -45,7 +44,7 @@ cat > tmpwatch.cron << EOF
 
 for d in /var/{cache/man,catman}/{cat?,X11R6/cat?,local/cat?,\$LANG/cat?}; do
     if [ -d "\$d" ]; then
-	%{_sbindir}/tmpwatch -f 30d "\$d"
+        %{_sbindir}/tmpwatch -f 30d "\$d"
     fi
 done
 EOF
