@@ -7,6 +7,7 @@ License:        GPL
 URL:            http://download.fedora.redhat.com/pub/fedora/linux/development/source/SRPMS/
 Source0:        %{name}-%{version}.tar.bz2
 Requires:       psmisc
+Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The tmpwatch utility recursively searches through specified directories and
