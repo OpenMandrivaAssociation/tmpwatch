@@ -1,7 +1,7 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
 Version:        2.9.13
-Release:        %mkrel 1
+Release:        %mkrel 2
 Group:          File tools
 License:	GPLv2
 URL:		https://fedorahosted.org/tmpwatch/
@@ -36,22 +36,23 @@ cat > tmpwatch.cron << EOF
 
 [ -f %{_sysconfdir}/sysconfig/tmpwatch ] && . %{_sysconfdir}/sysconfig/tmpwatch
 
-%{_sbindir}/tmpwatch \$TMPWATCH_EXCLUDES 10d /tmp
+%{_sbindir}/tmpwatch \$TMPWATCH_OPTIONS \$TMPWATCH_EXCLUDES 10d /tmp
 
-%{_sbindir}/tmpwatch \$TMPWATCH_EXCLUDES 30d /var/tmp
+%{_sbindir}/tmpwatch \$TMPWATCH_OPTIONS \$TMPWATCH_EXCLUDES 30d /var/tmp
 
 [ -f %{_sysconfdir}/sysconfig/i18n ] && . %{_sysconfdir}/sysconfig/i18n
 
 for d in /var/{cache/man,catman}/{cat?,X11R6/cat?,local/cat?,\$LANG/cat?}; do
     if [ -d "\$d" ]; then
-        %{_sbindir}/tmpwatch -f 30d "\$d"
+        %{_sbindir}/tmpwatch \$TMPWATCH_OPTIONS -f 30d "\$d"
     fi
 done
 EOF
 
 cat > tmpwatch.sysconfig << EOF
+#TMPWATCH_OPTIONS="-umc"
 # (oe) define files/directories/sockets tmpwatch should ignore (#18488)
-TMPWATCH_EXCLUDES="-x /tmp/.ICE-unix -x /tmp/.X*-unix -x /tmp/.font-unix -x /tmp/.Test-unix -x /tmp/jack-* -x /tmp/.esd-* -x /tmp/pulse-* -x /tmp/acroread* -x /tmp/gconfd-*"
+TMPWATCH_EXCLUDES="-x /tmp/.ICE-unix -x /tmp/.X*-unix -x /tmp/.font-unix -x /tmp/.Test-unix"
 EOF
 
 install -m0755 tmpwatch.cron %{buildroot}%{_sysconfdir}/cron.daily/tmpwatch
@@ -62,7 +63,7 @@ The %{_sysconfdir}/cron.daily/tmpwatch script has been changed to use the %{_sys
 file to exclude certain files/directories/sockets from being processed. It should be safe to make your changes
 there instead. Per default these are not touched by tmpwatch:
 
-/tmp/.ICE-unix /tmp/.X*-unix /tmp/.font-unix /tmp/.Test-unix /tmp/jack-* /tmp/.esd-* /tmp/pulse-* /tmp/acroread* /tmp/gconfd-*
+/tmp/.ICE-unix /tmp/.X*-unix /tmp/.font-unix /tmp/.Test-unix
 EOF
 
 %clean
