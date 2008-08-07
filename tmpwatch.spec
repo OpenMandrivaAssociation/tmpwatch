@@ -1,7 +1,7 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
 Version:        2.9.13
-Release:        %mkrel 2
+Release:        %mkrel 3
 Group:          File tools
 License:	GPLv2
 URL:		https://fedorahosted.org/tmpwatch/
