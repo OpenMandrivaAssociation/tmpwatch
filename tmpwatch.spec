@@ -1,7 +1,7 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
 Version:        2.9.13
-Release:        %mkrel 3
+Release:        %mkrel 4
 Group:          File tools
 License:	GPLv2
 URL:		https://fedorahosted.org/tmpwatch/
@@ -21,7 +21,7 @@ won't switch filesystems and only removes empty directories and regular files.
 %setup -q
 
 %build
-%make RPM_OPT_FLAGS="%{optflags}"
+make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 rm -rf %{buildroot}
