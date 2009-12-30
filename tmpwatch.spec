@@ -1,6 +1,6 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
-Version:        2.9.15
+Version:        2.9.17
 Release:        %mkrel 1
 Group:          File tools
 License:	GPLv2
