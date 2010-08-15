@@ -1,12 +1,14 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
-Version:        2.9.17
+Version:        2.10.1
 Release:        %mkrel 1
 Group:          File tools
 License:	GPLv2
 URL:		https://fedorahosted.org/tmpwatch/
 Source0:        https://fedorahosted.org/releases/t/m/tmpwatch/%{name}-%{version}.tar.bz2
 Requires:       psmisc
+# configure is looking for /sbin/fuser
+BuildRequires: psmisc
 Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -21,7 +23,8 @@ won't switch filesystems and only removes empty directories and regular files.
 %setup -q
 
 %build
-make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%configure2_5x
+%make
 
 %install
 rm -rf %{buildroot}
