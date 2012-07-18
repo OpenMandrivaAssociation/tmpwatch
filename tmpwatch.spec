@@ -1,7 +1,7 @@
 Summary:        Utility for removing files based on when they were last accessed
 Name:           tmpwatch
-Version:        2.10.1
-Release:        %mkrel 2
+Version:        2.11
+Release:        1
 Group:          File tools
 License:	GPLv2
 URL:		https://fedorahosted.org/tmpwatch/
@@ -9,7 +9,6 @@ Source0:        https://fedorahosted.org/releases/t/m/tmpwatch/%{name}-%{version
 Requires:       psmisc
 # configure is looking for /sbin/fuser
 BuildRequires: psmisc
-Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The tmpwatch utility recursively searches through specified directories and
@@ -69,11 +68,7 @@ there instead. Per default these are not touched by tmpwatch:
 /tmp/.ICE-unix /tmp/.X*-unix /tmp/.font-unix /tmp/.Test-unix
 EOF
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README.urpmi ChangeLog NEWS README
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/tmpwatch
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/tmpwatch
