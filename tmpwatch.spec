@@ -8,6 +8,11 @@ URL:		https://fedorahosted.org/tmpwatch/
 Source0:	https://fedorahosted.org/releases/t/m/tmpwatch/%{name}-%{version}.tar.bz2
 Requires:	psmisc
 # configure is looking for /sbin/fuser
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	psmisc
 
 %description
